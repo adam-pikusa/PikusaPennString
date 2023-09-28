@@ -40,21 +40,100 @@ namespace technikum
 
     string::string(const string& other)
     {
+        _len = other._len;
+        _capacity = other._capacity;
 
+        if (other._capacity == small_string_buffer_size)
+        {
+            memcpy_s(
+                _small_string_buffer,
+                small_string_buffer_size,
+                other._small_string_buffer,
+                other._len);
+            return;
+        }
+
+        _c_str = new char[other._capacity];
+
+        memcpy_s(
+            _c_str,
+            other._capacity,
+            other._c_str,
+            other._len);
     }
 
     string::string(string&& other)
     {
+        _len = other._len;
+        _capacity = other._capacity;
 
+        if (other._capacity == small_string_buffer_size)
+        {
+            memcpy_s( 
+                _small_string_buffer,
+                small_string_buffer_size,
+                other._small_string_buffer,
+                other._len);
+            return;
+        }
+
+        _c_str = other._c_str;
     }
 
     string& string::operator = (const string& other)
     {
+        if (this == &other)
+            return *this;
+
+        reserve(other._capacity);
+
+        if (other._capacity == small_string_buffer_size)
+        {
+            memcpy_s(
+                _small_string_buffer,
+                small_string_buffer_size,
+                other._small_string_buffer,
+                other._len);
+
+            _len = other._len;
+
+            return *this;
+        }
+
+        memcpy_s(
+            _c_str,
+            _capacity,
+            other._c_str,
+            other._len);
+
+        _len = other._len;
+
         return *this;
     }
 
     string& string::operator = (string&& other)
     {
+        if (this == &other)
+            return *this;
+
+        if (_capacity != small_string_buffer_size)
+            delete[] _c_str;
+
+        _len = other._len;
+        _capacity = other._capacity;
+
+        if (other._capacity == small_string_buffer_size)
+        {
+            memcpy_s(
+                _small_string_buffer,
+                small_string_buffer_size,
+                other._small_string_buffer,
+                other._len);
+            return *this;
+        }
+
+        _c_str = other._c_str;
+
         return *this;
     }
 
