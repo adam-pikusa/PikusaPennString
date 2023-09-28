@@ -10,8 +10,13 @@ namespace technikum
 
         string();
         string(std::size_t reserve_capacity);
-        string(const char * from_c_str);
+        string(const char* from_c_str);
+        string(const string& other);
+        string(string&& other);
         ~string();
+
+        string& operator = (const string& other);
+        string& operator = (string&& other);
 
         const char *c_str() const;
         std::size_t size() const;
