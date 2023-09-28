@@ -87,6 +87,10 @@ namespace technikum
         }
 
         _c_str = other._c_str;
+
+        other._small_string_buffer[0] = 0;
+        other._len = 1;
+        other._capacity = small_string_buffer_size;
     }
 
     string& string::operator = (const string& other)
@@ -143,16 +147,19 @@ namespace technikum
 
         _c_str = other._c_str;
 
+        other._small_string_buffer[0] = 0;
+        other._len = 1;
+        other._capacity = small_string_buffer_size;
+
         return *this;
     }
 
     string::~string()
     {
-        if (_capacity != small_string_buffer_size && _c_str[0] > -1)
+        if (_capacity != small_string_buffer_size)
         {
             delete[] _c_str;
         }
-            
     }
 
     const char* string::c_str() const
