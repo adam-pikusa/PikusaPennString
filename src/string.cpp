@@ -148,8 +148,11 @@ namespace technikum
 
     string::~string()
     {
-        if (_capacity != small_string_buffer_size)
+        if (_capacity != small_string_buffer_size && _c_str[0] > -1)
+        {
             delete[] _c_str;
+        }
+            
     }
 
     const char* string::c_str() const
