@@ -38,6 +38,26 @@ namespace technikum
         _len = reserve_capacity;
     }
 
+    string::string(const string& other)
+    {
+
+    }
+
+    string::string(string&& other)
+    {
+
+    }
+
+    string& string::operator = (const string& other)
+    {
+        return *this;
+    }
+
+    string& string::operator = (string&& other)
+    {
+        return *this;
+    }
+
     string::~string()
     {
         if (_capacity != small_string_buffer_size)
