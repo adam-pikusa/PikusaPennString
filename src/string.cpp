@@ -1,5 +1,4 @@
-#include <string.h>
-
+#include <string.h> // defines memcpy_s
 #include "technikumSTL/string.h"
 
 #ifndef WIN32 
@@ -8,6 +7,16 @@ void memcpy_s(void * dest, int cap, const void * src, int len) { memcpy(dest, sr
 
 namespace technikum
 {
+    std::size_t custom_strlen(const char* c_str) 
+    {
+        std::size_t length = 0;
+        while (*c_str != '\0') {
+            ++length;
+            ++c_str;
+        }
+        return length;
+    }
+
     string::string()
     {
         alloc(small_string_buffer_size);
@@ -20,7 +29,7 @@ namespace technikum
 
     string::string(const char * from_c_str)
     {
-        std::size_t reserve_capacity = strlen(from_c_str) + 1;
+        std::size_t reserve_capacity = custom_strlen(from_c_str) + 1;
 
         alloc(reserve_capacity);
 
