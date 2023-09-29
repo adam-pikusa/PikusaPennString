@@ -1,9 +1,12 @@
 #include <string.h>
 #include <stdio.h>
 
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest.h"
+
 #include "technikumSTL/string.h"
 
-int append_test(int argc, char* argv[])
+TEST_CASE("append test")
 {
     technikum::string str_hello("Hello ");
     technikum::string str_world("World!");
@@ -15,9 +18,9 @@ int append_test(int argc, char* argv[])
     puts(str_hello.c_str());
     printf("size:%d,cap:%d\n", str_hello.size(), str_hello.capacity());
 
-    if (strcmp(
+    CHECK(strcmp(
         "Hello World!",
-        str_hello.c_str())) return 1;
+        str_hello.c_str()) == 0);
 
     str_hello.append(str_2nd_comb);
 
@@ -25,9 +28,7 @@ int append_test(int argc, char* argv[])
     puts(str_hello.c_str());
     printf("size:%d,cap:%d\n", str_hello.size(), str_hello.capacity());
 
-    if (strcmp(
+    CHECK(strcmp(
         "Hello World! This part was appended later!",
-        str_hello.c_str())) return 1;
-
-    return 0;
+        str_hello.c_str()) == 0);
 }

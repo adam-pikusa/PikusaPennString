@@ -1,18 +1,21 @@
 #include <stdio.h>
 #include <string.h>
 
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest.h"
+
 #include "technikumSTL/string.h"
 
-int len_test(int argc, char* argv[])
+TEST_CASE("size of long string")
 {
     auto expression_a = "Hello!";
-    auto expression_b = "Hello World!";
-
     technikum::string str_a(expression_a);
-    technikum::string str_b(expression_b);
+    CHECK(str_a.size() == strlen(expression_a));
+}
 
-    if (str_a.size() != strlen(expression_a)) return 1;
-    if (str_b.size() != strlen(expression_b)) return 1;
-    
-    return 0;
+TEST_CASE("size of short string")
+{
+    auto expression_b = "Hello World!";
+    technikum::string str_b(expression_b);
+    CHECK(str_b.size() == strlen(expression_b));
 }
