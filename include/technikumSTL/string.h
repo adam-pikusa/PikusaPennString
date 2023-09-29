@@ -6,7 +6,7 @@ namespace technikum
     {
     public:
         // can be increased if bigger sso buffer is desired
-        static constexpr auto small_string_buffer_size = sizeof(const char*); 
+        static constexpr auto small_string_buffer_size = sizeof(char*); 
 
         string();
         string(std::size_t reserve_capacity);
@@ -18,10 +18,18 @@ namespace technikum
         string& operator = (const string& other);
         string& operator = (string&& other);
 
+        string& operator += (const string& other);
+        string& operator += (const char* other_c_str);
+        string operator + (const string& other);
+        string operator + (const char* other_c_str);
+
+        operator const char* () const;
+
         const char *c_str() const;
         std::size_t size() const;
         std::size_t capacity() const;
         void append(const string& other);
+        void append(const char* other_c_str);
         void reserve(std::size_t reserve);
 
     private:
