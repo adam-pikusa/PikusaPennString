@@ -20,8 +20,8 @@ namespace technikum
 
         string& operator += (const string& other);
         string& operator += (const char* other_c_str);
-        string operator + (const string& other);
-        string operator + (const char* other_c_str);
+        string operator + (const string& other) const;
+        string operator + (const char* other_c_str) const;
 
         operator const char* () const;
 
