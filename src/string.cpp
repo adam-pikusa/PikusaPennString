@@ -92,6 +92,14 @@ namespace technikum
         other._len = 1;
         other._capacity = small_string_buffer_size;
     }
+    
+    string::~string()
+    {
+        if (_capacity != small_string_buffer_size)
+        {
+            delete[] _c_str;
+        }
+    }
 
     string& string::operator = (const string& other)
     {
@@ -154,12 +162,35 @@ namespace technikum
         return *this;
     }
 
-    string::~string()
+    string& string::operator += (const string& other)
     {
-        if (_capacity != small_string_buffer_size)
-        {
-            delete[] _c_str;
-        }
+        append(other);
+        return *this;
+    }
+
+    string& string::operator += (const char* other_c_str)
+    {
+        append(other_c_str);
+        return *this;
+    }
+
+    string string::operator + (const string& other) const
+    {
+        auto new_string = *this;
+        new_string.append(other);
+        return new_string;
+    }
+
+    string string::operator + (const char* other_c_str) const
+    {
+        auto new_string = *this;
+        new_string.append(other_c_str);
+        return new_string;
+    }
+
+    string::operator const char* () const
+    {
+        return c_str();
     }
 
     const char* string::c_str() const
@@ -215,6 +246,46 @@ namespace technikum
             small_string_buffer_size - (_len - 1),
             other._small_string_buffer,
             other._len);
+        
+        _len = target_capacity;
+    }
+
+    void string::append(const char* other_c_str)
+    {
+        auto other_len = custom_strlen(other_c_str); // + 1;
+
+        std::size_t target_capacity = _len + other_len; // - 1;
+
+        if (target_capacity > small_string_buffer_size)
+        {
+            auto new_buffer = new char[target_capacity];
+
+            memcpy_s(
+                new_buffer,
+                target_capacity,
+                c_str(),
+                _len - 1);
+
+            memcpy_s(
+                new_buffer + (_len - 1),
+                target_capacity - (_len - 1),
+                other_c_str,
+                other_len);
+
+            if(_capacity != small_string_buffer_size)
+                delete[] _c_str;
+            _c_str = new_buffer;
+            _capacity = target_capacity;
+            _len = target_capacity;
+
+            return;
+        }
+
+        memcpy_s(
+            _small_string_buffer + (_len - 1),
+            small_string_buffer_size - (_len - 1),
+            other_c_str,
+            other_len);
         
         _len = target_capacity;
     }
