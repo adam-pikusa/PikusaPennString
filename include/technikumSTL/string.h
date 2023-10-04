@@ -1,3 +1,6 @@
+#ifndef TECHNIKUM_STRING_H
+#define TECHNIKUM_STRING_H
+
 #include <cstddef>
 
 namespace technikum
@@ -46,3 +49,4 @@ namespace technikum
     };
 }
 
+#endif
