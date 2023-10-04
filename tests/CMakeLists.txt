@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.23)
 project(PikusaPennString)
 
-add_executable(TestingExe
-    append_test.cpp
-    len_test.cpp
-    reserve_test.cpp
-    constructors_operators_test.cpp)
-target_link_libraries(TestingExe PRIVATE PikusaPennStringLib)
-    
-add_test(NAME len_test COMMAND TestingExe)
+foreach(string_test_name
+    len_test 
+    reserve_test
+    append_test 
+    constructors_operators_test)
+
+    add_executable(${string_test_name} ${string_test_name}.cpp)
+    target_link_libraries(${string_test_name} PRIVATE PikusaPennStringLib)
+    add_test(NAME ${string_test_name} COMMAND ${string_test_name})
+endforeach()
+
