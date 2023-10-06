@@ -252,9 +252,9 @@ namespace technikum
 
     void string::append(const char* other_c_str)
     {
-        auto other_len = custom_strlen(other_c_str); // + 1;
+        auto other_len = custom_strlen(other_c_str) + 1;
 
-        std::size_t target_capacity = _len + other_len; // - 1;
+        std::size_t target_capacity = _len + other_len - 1;
 
         if (target_capacity > small_string_buffer_size)
         {
