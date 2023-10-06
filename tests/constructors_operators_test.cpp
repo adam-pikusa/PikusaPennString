@@ -12,7 +12,7 @@ TEST_CASE("Copy Constructor - short string")
 	technikum::string string1("Hello");
 	technikum::string copyString1(string1);
 
-	CHECK(strcmp(copyString1.c_str(), "Hello") == 0);
+	CHECK_EQ(strcmp(copyString1.c_str(), "Hello"), 0);
 }
 
 TEST_CASE("Copy Constructor - long string")
@@ -20,7 +20,7 @@ TEST_CASE("Copy Constructor - long string")
 	technikum::string string1_long("Hello123456789");
 	technikum::string copyString1_long(string1_long);
 
-	CHECK(strcmp(copyString1_long.c_str(), "Hello123456789") == 0);
+	CHECK_EQ(strcmp(copyString1_long.c_str(), "Hello123456789"), 0);
 }
 
 TEST_CASE("Copy assignment")
@@ -28,7 +28,7 @@ TEST_CASE("Copy assignment")
 	technikum::string string2("Something");
 
 	technikum::string string1 = string2;
-	CHECK(strcmp(string1.c_str(), "Something") == 0);
+	CHECK_EQ(strcmp(string1.c_str(), "Something"), 0);
 }
 
 TEST_CASE("Move Constructor")
@@ -36,7 +36,7 @@ TEST_CASE("Move Constructor")
 	technikum::string string3("No idea long");
 	technikum::string movedString(std::move(string3));
 
-	CHECK(strcmp(movedString.c_str(), "No idea long") == 0);
+	CHECK_EQ(strcmp(movedString.c_str(), "No idea long"), 0);
 }
 
 TEST_CASE("Move assignment")
@@ -46,5 +46,5 @@ TEST_CASE("Move assignment")
 
 	anotherMovedString.operator=(std::move(string4));
 
-	CHECK(strcmp(anotherMovedString.c_str(), "Yoyoyoyoyo") == 0);
+	CHECK_EQ(strcmp(anotherMovedString.c_str(), "Yoyoyoyoyo"), 0);
 }

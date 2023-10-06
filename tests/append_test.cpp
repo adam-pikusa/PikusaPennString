@@ -18,9 +18,9 @@ TEST_CASE("append test")
     puts(str_hello.c_str());
     printf("size:%d,cap:%d\n", str_hello.size(), str_hello.capacity());
 
-    CHECK(strcmp(
+    CHECK_EQ(strcmp(
         "Hello World!",
-        str_hello.c_str()) == 0);
+        str_hello.c_str()), 0);
 
     str_hello.append(str_2nd_comb);
 
@@ -28,7 +28,7 @@ TEST_CASE("append test")
     puts(str_hello.c_str());
     printf("size:%d,cap:%d\n", str_hello.size(), str_hello.capacity());
 
-    CHECK(strcmp(
+    CHECK_EQ(strcmp(
         "Hello World! This part was appended later!",
-        str_hello.c_str()) == 0);
+        str_hello.c_str()), 0);
 }
