@@ -1,6 +1,7 @@
 #ifndef TECHNIKUM_STRING_H
 #define TECHNIKUM_STRING_H
 
+#include <iterator> 
 #include <cstddef>
 
 namespace technikum
@@ -8,6 +9,24 @@ namespace technikum
     class string
     {
     public:
+        template<typename T>
+        class Iterator
+        {
+            using iterator_category = std::random_access_iterator_tag;
+            using value_type        = T;
+            using pointer           = T*;
+            using reference         = T&;
+            using difference_type   = std::ptrdiff_t;
+        public:
+            Iterator(T ptr) : _ptr(ptr) {}
+            Iterator& operator++();
+            Iterator operator++(int);
+            Iterator& operator--();
+            Iterator operator--(int);
+        private:
+            pointer _ptr;
+        };
+
         // can be increased if bigger sso buffer is desired
         static constexpr auto small_string_buffer_size = sizeof(char*); 
 
@@ -34,6 +53,9 @@ namespace technikum
         void append(const string& other);
         void append(const char* other_c_str);
         void reserve(std::size_t reserve);
+
+        template<typename T> Iterator<T> begin() const;
+        template<typename T> Iterator<T> end() const;
 
     private:
         std::size_t _capacity = 0;

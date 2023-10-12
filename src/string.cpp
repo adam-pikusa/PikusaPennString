@@ -387,4 +387,48 @@ namespace technikum
             }
         }
     }
+
+    template<typename T>
+    string::Iterator<T>& string::Iterator<T>::operator++()
+    {
+        ++_ptr;
+        return *this;
+    }
+
+    template<typename T>
+    string::Iterator<T> string::Iterator<T>::operator++(int)
+    {
+        string::Iterator temp = *this;
+        ++_ptr;
+        return temp;
+    }
+
+    template<typename T>
+    string::Iterator<T>& string::Iterator<T>::operator--()
+    {
+        --_ptr;
+        return *this;
+    }
+
+    template<typename T>
+    string::Iterator<T> string::Iterator<T>::operator--(int)
+    {
+        string::Iterator temp = *this;
+        --_ptr;
+        return temp;
+    }
+
+    template<typename T>
+    string::Iterator<T> string::begin() const
+    {
+        auto ptr = _capacity == small_string_buffer_size ? _small_string_buffer : _c_str;
+        return string::Iterator(ptr);
+    }
+
+    template<typename T>
+    string::Iterator<T> string::end() const
+    {
+        auto ptr = _capacity == small_string_buffer_size ? _small_string_buffer : _c_str;
+        return string::Iterator(ptr + _len - 2 );
+    }
 }
