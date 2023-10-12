@@ -7,11 +7,11 @@ TEST_CASE("iterators")
 {
 	const technikum::string test("Hello World");
 
-	for (technikum::string::Iterator it = test.begin<const char*>();
-		it != test.end<const char*>(); ++it)
+	for (auto it = test.cbegin();
+		it != test.cend(); ++it)
 	{ 
 		std::cout << *it << '\n'; 
 	}
 
-	std::cout << (std::find(test.begin<const char*>(), test.end<const char*>(), 'W') != test.end<const char*>()) << '\n';
+	std::cout << (std::find(test.cbegin(), test.cend(), 'W') != test.cend()) << '\n';
 }

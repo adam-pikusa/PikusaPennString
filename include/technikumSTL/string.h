@@ -12,23 +12,32 @@ namespace technikum
         template<typename T>
         class Iterator
         {
-            using iterator_category = std::random_access_iterator_tag;
-            using value_type        = T;
-            using pointer           = T*;
-            using reference         = T&;
-            using difference_type   = std::ptrdiff_t;
         public:
-            Iterator(T ptr) : _ptr(ptr) {}
-            Iterator& operator++();
-            Iterator operator++(int);
-            Iterator& operator--();
-            Iterator operator--(int);
-            reference operator*();
-            pointer operator->();
-            bool operator==(const Iterator& a);
-            bool operator!=(const Iterator& a);
+            using difference_type = std::ptrdiff_t;
+            using element_type = T;
+            using pointer = element_type*;
+            using reference = element_type&;
+        public:
+            Iterator() {}
+            Iterator(pointer ptr) : _ptr(ptr) {}
+            auto& operator++() { ++_ptr; return *this; }
+            auto& operator--() { --_ptr; return *this; }
+            auto operator++(int) {
+                auto temp = *this;
+                ++_ptr;
+                return temp;
+            }
+            auto operator--(int) {
+                auto temp = *this;
+                --_ptr;
+                return temp;
+            }
+            reference operator*() { return *_ptr; }
+            auto* operator->() { return _ptr; }
+            bool operator==(const Iterator& a) { return _ptr == a._ptr; }
+            bool operator!=(const Iterator& a) { return _ptr != a._ptr; }
         private:
-            pointer _ptr;
+            T* _ptr;
         };
 
         // can be increased if bigger sso buffer is desired
@@ -58,8 +67,29 @@ namespace technikum
         void append(const char* other_c_str);
         void reserve(std::size_t reserve);
 
-        template<typename T> Iterator<T> begin() const;
-        template<typename T> Iterator<T> end() const;
+        auto begin()
+        {
+            char* ptr = _capacity == small_string_buffer_size ? _small_string_buffer : _c_str;
+            return Iterator(ptr);
+        }
+
+        auto end()
+        {
+            char* ptr = _capacity == small_string_buffer_size ? _small_string_buffer : _c_str;
+            return Iterator(ptr + _len - 2);
+        }
+
+        auto cbegin() const
+        {
+            const char* ptr = _capacity == small_string_buffer_size ? _small_string_buffer : _c_str;
+            return Iterator(ptr);
+        }
+
+        auto cend() const
+        {
+            const char* ptr = _capacity == small_string_buffer_size ? _small_string_buffer : _c_str;
+            return Iterator(ptr + _len - 2);
+        }
 
     private:
         std::size_t _capacity = 0;
