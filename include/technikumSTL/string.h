@@ -76,7 +76,7 @@ namespace technikum
         auto end()
         {
             char* ptr = _capacity == small_string_buffer_size ? _small_string_buffer : _c_str;
-            return Iterator(ptr + _len - 2);
+            return Iterator(ptr + _len - 1);
         }
 
         auto cbegin() const
@@ -88,7 +88,7 @@ namespace technikum
         auto cend() const
         {
             const char* ptr = _capacity == small_string_buffer_size ? _small_string_buffer : _c_str;
-            return Iterator(ptr + _len - 2);
+            return Iterator(ptr + _len - 1);
         }
 
     private:
