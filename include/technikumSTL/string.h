@@ -23,6 +23,10 @@ namespace technikum
             Iterator operator++(int);
             Iterator& operator--();
             Iterator operator--(int);
+            reference operator*();
+            pointer operator->();
+            bool operator==(const Iterator& a);
+            bool operator!=(const Iterator& a);
         private:
             pointer _ptr;
         };

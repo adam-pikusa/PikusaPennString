@@ -431,4 +431,28 @@ namespace technikum
         auto ptr = _capacity == small_string_buffer_size ? _small_string_buffer : _c_str;
         return string::Iterator(ptr + _len - 2 );
     }
+
+    template<typename T>
+    T& string::Iterator<T>::operator*()
+    {
+        return *_ptr;
+    }
+
+    template<typename T>
+    T* string::Iterator<T>::operator->()
+    {
+        return _ptr;
+    }
+
+    template<typename T>
+    bool string::Iterator<T>::operator==(const string::Iterator<T>& a)
+    {
+        return _ptr == a._ptr;
+    }
+    
+    template<typename T>
+    bool string::Iterator<T>::operator!= (const string::Iterator<T>& a)
+    {
+        return _ptr != a._ptr;
+    };
 }
