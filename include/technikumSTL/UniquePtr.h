@@ -9,19 +9,30 @@ namespace technikum
 		UniquePtr(T* pointer) : _pointer(pointer){}
 		UniquePtr(UniquePtr&) = delete;
 		UniquePtr& operator=(UniquePtr&) = delete;
-		UniquePtr(UniquePtr&& other) {}
-		UniquePtr& operator=(UniquePtr&&) {}
+
+		UniquePtr(UniquePtr&& other) 
+		{
+			_pointer = other._pointer;
+		}
+
+		UniquePtr& operator=(UniquePtr&& other) 
+		{
+			if (this == &other)
+				return *this;
+
+			_pointer = other._pointer;
+			return *this;
+		}
 
 		~UniquePtr() 
 		{
 			if constexpr (delete_func != nullptr)
 			{
-				puts("calling custom deleter");
 				delete_func(_pointer);
 				return;
 			}
 
-			puts("default deleter");
+			delete _pointer;
 		}
 
 		T& operator*() { return *_pointer; }
