@@ -4,7 +4,7 @@ namespace technikum
 	class UniquePtr
 	{
 	public:
-		UniquePtr(T* pointer) : pointer(pointer);
+		UniquePtr(T* pointer) : _pointer(pointer){}
 
 		~UniquePtr();
 
@@ -12,9 +12,9 @@ namespace technikum
 		T* operator->() const { return _pointer; };
 		operator bool() const { return _pointer != nullptr; };
 
-		T* Release();
-		void Reset();
-		void Swap(T* other);
+		T* Release() { return nullptr; }
+		void Reset(){}
+		void Swap(T* other){}
 
 	private:
 		T* _pointer;

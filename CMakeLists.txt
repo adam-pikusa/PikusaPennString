@@ -14,7 +14,8 @@ foreach(string_test_name
     append_test 
     constructors_operators_test
     concat_operators_test
-    iterator_test)
+    iterator_test
+    uniqueptr_test)
 
     add_executable(${string_test_name} tests/${string_test_name}.cpp)
     target_link_libraries(${string_test_name} PRIVATE PikusaPennStringLib)
