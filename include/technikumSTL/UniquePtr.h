@@ -26,6 +26,8 @@ namespace technikum
 
 		~UniquePtr() 
 		{
+			if (_pointer == nullptr) return;
+
 			if constexpr (delete_func != nullptr)
 			{
 				delete_func(_pointer);

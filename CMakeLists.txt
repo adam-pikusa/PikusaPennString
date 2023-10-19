@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 include(CTest)
 
-add_library(PikusaPennStringLib STATIC src/string.cpp src/UniquePtr.cpp)
+add_library(PikusaPennStringLib STATIC src/string.cpp)
 target_include_directories(PikusaPennStringLib PUBLIC include)
 
 foreach(string_test_name
